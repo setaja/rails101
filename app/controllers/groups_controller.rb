@@ -19,7 +19,6 @@ class GroupsController < ApplicationController
    end
 
    def update
-
      if @group.update(group_params)
        redirect_to groups_path, notice: "Update Success"
      else
@@ -32,6 +31,7 @@ class GroupsController < ApplicationController
       @group.user = current_user
 
       if @group.save
+        current_user.join!(@group)
         redirect_to groups_path
       else
         render :new
